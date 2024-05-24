@@ -3,19 +3,46 @@ import mudConfig from "contracts/mud.config";
 
 const {
   components,
-  systemCalls: { increment },
+  systemCalls: { increment, setVendingMachineRatio },
   network,
 } = await setup();
 
 // Components expose a stream that triggers when the component is updated.
-components.Counter.update$.subscribe((update) => {
-  // const [nextValue, prevValue] = update.value;
-  // console.log("Counter updated", update, { nextValue, prevValue });
-  // document.getElementById("counter")!.innerHTML = String(nextValue?.value ?? "unset");
+components.RatioConfig.update$.subscribe((update) => {
+  console.log("update:", update);
 });
 
 // Attach the increment function to the html element with ID `incrementButton` (if it exists)
-document.querySelector("#incrementButton")?.addEventListener("click", increment);
+document
+  .querySelector("#incrementButton")
+  ?.addEventListener("click", increment);
+
+document
+  .querySelector("#setVendingMachineRatio")
+  ?.addEventListener("click", () => {
+    handleSubmit();
+  });
+
+// Vending machine functions
+function handleSubmit() {
+  console.log("handleSubmit");
+
+  const form = document.getElementById("vendingMachine") as HTMLFormElement;
+  const formData = new FormData(form);
+
+  console.log("formData: ", formData);
+  const ssuId = document.getElementById("ssuId") as HTMLInputElement | any;
+  const inventoryInId = document.getElementById("inventoryInId") as
+    | HTMLInputElement
+    | any;
+  const inventoryOutId = document.getElementById("inventoryOutId") as
+    | HTMLInputElement
+    | any;
+  const qtyIn = document.getElementById("qtyIn") as HTMLInputElement | any;
+  const qtyOut = document.getElementById("qtyOut") as HTMLInputElement | any;
+
+  setVendingMachineRatio(ssuId, inventoryInId, inventoryOutId, qtyIn, qtyOut);
+}
 
 // https://vitejs.dev/guide/env-and-mode.html
 if (import.meta.env.DEV) {

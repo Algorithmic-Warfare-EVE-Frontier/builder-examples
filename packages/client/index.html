@@ -3,11 +3,78 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>a minimal MUD client</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>EVE Builder Examples</title>
   </head>
-  <body>
-    <script type="module" src="/src/index.ts"></script>
-    <div>Example: <span id="counter">0</span></div>
-    <button id="incrementButton">Increment</button>
+  <body class="pt-32 space-y-10 flex justify-center">
+    <div>
+      <div id="vendingMachine" class="space-y-4">
+        <h2 class="font-bold text-2xl text-center underline">
+          Vending Machine
+        </h2>
+        <script type="module" src="/src/index.ts"></script>
+        <p>
+          <label for="ssuId" class="pr-4">Smart Object ID:</label>
+          <input
+            type="number"
+            id="ssuId"
+            ssuId="ssuId"
+            min="0"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <p>
+          <label for="inventoryInId" class="pr-4">Inventory In Id:</label>
+          <input
+            type="number"
+            id="inventoryInId"
+            name="inventoryInId"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <p>
+          <label for="inventoryOutId" class="pr-4">Inventory Out Id:</label>
+          <input
+            type="number"
+            id="inventoryOutId"
+            name="inventoryOutId"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <p>
+          <label for="qtyIn" class="pr-4">Quantity In:</label>
+          <input
+            type="number"
+            id="qtyIn"
+            name="qtyIn"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <p>
+          <label for="qtyOut" class="pr-4">Quantity Out:</label>
+          <input
+            type="number"
+            id="qtyOut"
+            name="qtyOut"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <button
+          type="submit"
+          id="setVendingMachineRatio"
+          class="p-2 border border-rounded bg-slate-400 rounded-lg"
+        >
+          Set Ratio
+        </button>
+      </div>
+    </div>
   </body>
 </html>

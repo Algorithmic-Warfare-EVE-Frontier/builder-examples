@@ -31,7 +31,7 @@ export function createSystemCalls(
    *   (https://github.com/latticexyz/mud/blob/main/templates/vanilla/packages/client/src/mud/setupNetwork.ts#L77-L83).
    */
   { worldContract, waitForTransaction }: SetupNetworkResult,
-  { }: ClientComponents
+  { RatioConfig }: ClientComponents
 ) {
   const increment = async () => {
     /*
@@ -45,7 +45,28 @@ export function createSystemCalls(
     // return getComponentValue(Counter, singletonEntity);
   };
 
+  const setVendingMachineRatio = async (
+    ssuId: number,
+    inventoryInId: number,
+    inventoryOutId: number,
+    qtyIn: number,
+    qtyOut: number
+  ) => {
+    const tx = await worldContract.write.test__setVendingMachineRatio(
+      ssuId,
+      inventoryInId,
+      inventoryOutId,
+      qtyIn,
+      qtyOut
+    );
+
+    console.log("tx: ", tx);
+    await waitForTransaction(tx);
+    return getComponentValue(RatioConfig, singletonEntity);
+  };
+
   return {
     increment,
+    setVendingMachineRatio,
   };
 }
