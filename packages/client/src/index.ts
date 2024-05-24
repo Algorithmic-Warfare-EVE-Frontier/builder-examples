@@ -23,14 +23,13 @@ document
     handleSubmit();
   });
 
+document.querySelector("#purchaseItem")?.addEventListener("click", () => {
+  handleSubmit();
+});
 // Vending machine functions
 function handleSubmit() {
   console.log("handleSubmit");
 
-  const form = document.getElementById("vendingMachine") as HTMLFormElement;
-  const formData = new FormData(form);
-
-  console.log("formData: ", formData);
   const ssuId = document.getElementById("ssuId") as HTMLInputElement | any;
   const inventoryInId = document.getElementById("inventoryInId") as
     | HTMLInputElement
@@ -41,7 +40,22 @@ function handleSubmit() {
   const qtyIn = document.getElementById("qtyIn") as HTMLInputElement | any;
   const qtyOut = document.getElementById("qtyOut") as HTMLInputElement | any;
 
-  setVendingMachineRatio(ssuId, inventoryInId, inventoryOutId, qtyIn, qtyOut);
+  console.log(
+    "setVendingMachineRatio",
+    ssuId.value,
+    inventoryInId.value,
+    inventoryOutId.value,
+    qtyIn.value,
+    qtyOut.value
+  );
+
+  setVendingMachineRatio(
+    ssuId.value,
+    inventoryInId.value,
+    inventoryOutId.value,
+    qtyIn.value,
+    qtyOut.value
+  );
 }
 
 // https://vitejs.dev/guide/env-and-mode.html

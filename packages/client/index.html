@@ -9,9 +9,9 @@
     />
     <title>EVE Builder Examples</title>
   </head>
-  <body class="pt-32 space-y-10 flex justify-center">
-    <div>
-      <div id="vendingMachine" class="space-y-4">
+  <body class="pt-32 space-y-10">
+    <div class="flex justify-center">
+      <div id="vendingMachine" class="space-y-4 block">
         <h2 class="font-bold text-2xl text-center underline">
           Vending Machine
         </h2>
@@ -73,6 +73,51 @@
           class="p-2 border border-rounded bg-slate-400 rounded-lg"
         >
           Set Ratio
+        </button>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <div id="itemSeller" class="space-y-4">
+        <h2 class="font-bold text-2xl text-center underline">Item Seller</h2>
+        <script type="module" src="/src/item-seller.ts"></script>
+        <p>
+          <label for="smartObjectId" class="pr-4">Smart Object ID:</label>
+          <input
+            type="number"
+            id="smartObjectId"
+            ssuId="smartObjectId"
+            min="0"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <p>
+          <label for="inventoryItemId" class="pr-4">Inventory In Id:</label>
+          <input
+            type="number"
+            id="inventoryItemId"
+            name="inventoryItemId"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <p>
+          <label for="qty" class="pr-4">Quantity:</label>
+          <input
+            type="number"
+            id="qty"
+            name="qty"
+            required
+            class="p-1 border border-slate-400 border-rounded rounded-lg"
+          />
+        </p>
+        <button
+          type="submit"
+          id="purchaseItem"
+          class="p-2 border border-rounded bg-slate-400 rounded-lg"
+        >
+          Purchase Item
         </button>
       </div>
     </div>
