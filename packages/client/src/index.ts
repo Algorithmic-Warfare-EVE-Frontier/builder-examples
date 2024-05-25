@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
   disconnectWalletButton.addEventListener("click", () => {
     accountAddressDiv.textContent = "Account: Not connected";
     disconnectWalletButton.style.display = "none";
+    connectWalletButton.style.display = "block";
+
     // Optional: reset other parts of the UI or internal state
   });
 });
