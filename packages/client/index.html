@@ -8,20 +8,37 @@
       rel="stylesheet"
     />
     <title>EVE Builder Examples</title>
+    <script type="module" src="/src/index.ts"></script>
   </head>
   <body class="pt-32 space-y-10">
+    <header class="flex justify-between px-40 pb-8">
+      <h1 class="text-4xl text-center">EVE Builder Examples</h1>
+      <div>
+        <div>
+          <button
+            id="connectWallet"
+            class="bg-blue-500 text-white font-bold p-2 rounded-lg block"
+          >
+            Connect Wallet
+          </button>
+          <button id="disconnectWallet" style="display: none">
+            Disconnect Wallet
+          </button>
+        </div>
+
+        <div id="accountAddress" class="py-4">Account: Not connected</div>
+      </div>
+    </header>
     <div class="flex justify-center">
       <div id="vendingMachine" class="space-y-4 block">
         <h2 class="font-bold text-2xl text-center underline">
           Vending Machine
         </h2>
-        <script type="module" src="/src/index.ts"></script>
         <p>
           <label for="ssuId" class="pr-4">Smart Object ID:</label>
           <input
             type="number"
             id="ssuId"
-            ssuId="ssuId"
             min="0"
             required
             class="p-1 border border-slate-400 border-rounded rounded-lg"
@@ -80,13 +97,11 @@
     <div class="flex justify-center">
       <div id="itemSeller" class="space-y-4">
         <h2 class="font-bold text-2xl text-center underline">Item Seller</h2>
-        <script type="module" src="/src/item-seller.ts"></script>
         <p>
           <label for="smartObjectId" class="pr-4">Smart Object ID:</label>
           <input
             type="number"
             id="smartObjectId"
-            ssuId="smartObjectId"
             min="0"
             required
             class="p-1 border border-slate-400 border-rounded rounded-lg"
