@@ -3,7 +3,7 @@ import mudConfig from "contracts/mud.config";
 
 const {
   components,
-  systemCalls: { increment, setVendingMachineRatio },
+  systemCalls: { setVendingMachineRatio, purchaseItem },
   network,
 } = await setup();
 
@@ -56,15 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     accountAddressDiv.textContent = "Account: Not connected";
     disconnectWalletButton.style.display = "none";
     connectWalletButton.style.display = "block";
-
-    // Optional: reset other parts of the UI or internal state
   });
 });
-
-// Attach the increment function to the html element with ID `incrementButton` (if it exists)
-document
-  .querySelector("#incrementButton")
-  ?.addEventListener("click", increment);
 
 document
   .querySelector("#setVendingMachineRatio")
@@ -118,7 +111,7 @@ function handleItem() {
     | HTMLInputElement
     | any;
   const qty = document.getElementById("qty") as HTMLInputElement | any;
-  //   purchaseItem(smartObjectId.value, inventoryItemId.value, qty.value);
+  purchaseItem(smartObjectId.value, inventoryItemId.value, qty.value);
 }
 
 // https://vitejs.dev/guide/env-and-mode.html
