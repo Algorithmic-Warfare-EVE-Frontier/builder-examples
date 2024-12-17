@@ -28,11 +28,11 @@ contract TribeGateSystem is System {
 
     for (uint256 i = 0; i < allowedCorps.length; i++) {
       if (characterCorp == allowedCorps[i]) {
-        return true;
+        return false;
       }
     }
 
-    return false;
+    return true;
   }
 
   function addAllowedCorp(uint256 sourceGateId, uint256 corpID) public {

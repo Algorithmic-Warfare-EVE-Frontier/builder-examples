@@ -39,9 +39,9 @@ contract ConfigureSmartGate is Script {
 
     vm.stopBroadcast();
 
-    // Get the allowed corp
-    uint256 corpID = vm.envUint("ALLOWED_CORP_ID");
-    AddAllowedCorp allowCrop = new AddAllowedCorp();
-    allowCrop.run(worldAddress, corpID);
+    // // Get the allowed corp
+    // uint256 corpID = vm.envUint("ALLOWED_CORP_ID");
+    // AddAllowedCorp allowCrop = new AddAllowedCorp();
+    // allowCrop.run(worldAddress, corpID);
   }
 }

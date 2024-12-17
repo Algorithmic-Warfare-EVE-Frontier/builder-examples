@@ -2,16 +2,35 @@ import { defineWorld } from "@latticexyz/world";
 
 export default defineWorld({
   namespace: "AWAR",
-  tables: {
-    RatioConfig: {
-      schema: {
-        smartObjectId: "uint256",
-        itemIn: "uint256",
-        itemOut: "uint256",
-        ratioIn: "uint64",
-        ratioOut: "uint64",
-      },
-      key: ["smartObjectId", "itemIn"],
+  systems: {
+    TribeStorageSystem: {
+      name: "TribeStorage",
+      openAccess: true,
     },
+  },
+  tables: {
+    PingTest: {
+      schema: {
+        pingAddress: "address",
+        pingTimestamp: "uint256",
+        pingText: "string",
+      },
+      key: ["pingAddress"],
+    },
+    TribeStorageTransaction: {
+      schema: {
+        transactionId: "uint256",
+        tribesmenAddress: "address",
+        inventoryItemId: "uint256",
+        inventoryItemAmount: "uint256",
+        smartStorageUnitId: "uint256",
+        timestamp: "uint256",
+        transactionType: "StorageTransaction",
+      },
+      key: ["transactionId"],
+    },
+  },
+  enums: {
+    StorageTransaction: ["DEPOSIT", "WITHDRAWAL"],
   },
 });

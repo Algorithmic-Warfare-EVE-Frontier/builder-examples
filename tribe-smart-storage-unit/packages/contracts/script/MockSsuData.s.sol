@@ -37,8 +37,10 @@ contract MockSsuData is Script {
     uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
     address owner = vm.addr(deployerPrivateKey);
 
-    uint256 playerPrivateKey = vm.envUint("TEST_PLAYER_PRIVATE_KEY");
-    address player = vm.addr(playerPrivateKey);
+    uint256 tribesmenPrivateKey = vm.envUint("TEST_TRIBESMEN_PRIVATE_KEY");
+    uint256 nontribesmenPrivateKey = vm.envUint("TEST_NONTRIBESMEN_PRIVATE_KEY");
+    address tribesmen = vm.addr(tribesmenPrivateKey);
+    address nontribesmen = vm.addr(nontribesmenPrivateKey);
 
     // Start broadcasting transactions from the deployer account
     vm.startBroadcast(deployerPrivateKey);
@@ -57,11 +59,22 @@ contract MockSsuData is Script {
       namespace: FRONTIER_WORLD_DEPLOYMENT_NAMESPACE
     });
 
-    if (CharactersByAddressTable.get(player) == 0) {
+    if (CharactersByAddressTable.get(tribesmen) == 0) {
       smartCharacter.createCharacter(
         777000011,
-        player,
+        tribesmen,
         7777,
+        CharacterEntityRecord({ typeId: 123, itemId: 234, volume: 100 }),
+        EntityRecordOffchainTableData({ name: "ron", dappURL: "noURL", description: "." }),
+        ""
+      );
+    }
+
+    if (CharactersByAddressTable.get(nontribesmen) == 0) {
+      smartCharacter.createCharacter(
+        777000012,
+        nontribesmen,
+        7766,
         CharacterEntityRecord({ typeId: 123, itemId: 234, volume: 100 }),
         EntityRecordOffchainTableData({ name: "ron", dappURL: "noURL", description: "." }),
         ""
@@ -72,7 +85,7 @@ contract MockSsuData is Script {
       smartCharacter.createCharacter(
         777000022,
         owner,
-        8888,
+        7777,
         CharacterEntityRecord({ typeId: 123, itemId: 234, volume: 100 }),
         EntityRecordOffchainTableData({ name: "harryporter", dappURL: "noURL", description: "." }),
         ""
@@ -82,13 +95,16 @@ contract MockSsuData is Script {
     uint256 smartStorageUnitId = vm.envUint("SSU_ID");
     createAnchorAndOnline(smartStorageUnitId, owner);
 
-    uint256 inventoryItemIn = vm.envUint("ITEM_IN_ID");
-    uint256 inventoryItemOut = vm.envUint("ITEM_OUT_ID");
+    uint256 inventoryItem1 = vm.envUint("ITEM_1");
+    uint256 inventoryItem2 = vm.envUint("ITEM_2");
+    uint256 inventoryItem3 = vm.envUint("ITEM_3");
 
     //Deposit some mock items to inventory and ephemeral
+
+    // owner inventory
     InventoryItem[] memory items = new InventoryItem[](1);
     items[0] = InventoryItem({
-      inventoryItemId: inventoryItemOut,
+      inventoryItemId: inventoryItem1,
       owner: owner,
       itemId: 0,
       typeId: 23,
@@ -98,16 +114,29 @@ contract MockSsuData is Script {
 
     smartStorageUnit.createAndDepositItemsToInventory(smartStorageUnitId, items);
 
+    // tribesmen inventory
     InventoryItem[] memory ephemeralItems = new InventoryItem[](1);
     ephemeralItems[0] = InventoryItem({
-      inventoryItemId: inventoryItemIn,
-      owner: player,
+      inventoryItemId: inventoryItem2,
+      owner: tribesmen,
       itemId: 0,
-      typeId: 23,
+      typeId: 24,
       volume: 10,
       quantity: 15
     });
-    smartStorageUnit.createAndDepositItemsToEphemeralInventory(smartStorageUnitId, player, ephemeralItems);
+    smartStorageUnit.createAndDepositItemsToEphemeralInventory(smartStorageUnitId, tribesmen, ephemeralItems);
+
+    // nontribesmen
+    InventoryItem[] memory ephemeralItems1 = new InventoryItem[](1);
+    ephemeralItems1[0] = InventoryItem({
+      inventoryItemId: inventoryItem3,
+      owner: nontribesmen,
+      itemId: 0,
+      typeId: 25,
+      volume: 10,
+      quantity: 15
+    });
+    smartStorageUnit.createAndDepositItemsToEphemeralInventory(smartStorageUnitId, nontribesmen, ephemeralItems1);
 
     vm.stopBroadcast();
   }
@@ -119,11 +148,11 @@ contract MockSsuData is Script {
       EntityRecordData({ typeId: 7888, itemId: 111, volume: 10 }),
       SmartObjectData({ owner: owner, tokenURI: "test" }),
       WorldPosition({ solarSystemId: 1, position: Coord({ x: 1, y: 1, z: 1 }) }),
-      1e18,           // fuelUnitVolume,
-      1,              // fuelConsumptionPerMinute,
+      1e18, // fuelUnitVolume,
+      1, // fuelConsumptionPerMinute,
       1000000 * 1e18, // fuelMaxCapacity,
-      100000000,      // storageCapacity,
-      100000000000    // ephemeralStorageCapacity
+      100000000, // storageCapacity,
+      100000000000 // ephemeralStorageCapacity
     );
 
     // check global state and resume if needed
